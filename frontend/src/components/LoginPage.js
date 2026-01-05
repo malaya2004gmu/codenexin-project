@@ -57,27 +57,25 @@ function LoginPage() {
     <>
       {/* ===== HEADER ===== */}
       <header className="party-header">
-  <div className="header-top">
-    <h1>Nyay Paksh Party</h1>
-    <p>A party by the people, chosen by the people</p>
-  </div>
-</header>
-
-
+        <div className="header-top">
+          <h1>Nyay Paksh Party</h1>
+          <p>A party by the people, chosen by the people</p>
+        </div>
+      </header>
 
       {/* ===== LOGIN CONTENT ===== */}
       <div className="page-wrapper">
         <div className="login-card">
           <img src={logo} alt="Logo" className="top-logo" />
 
-          <h2 className="main-title">Join the Nyaya Party Family</h2>
+          <h2 className="main-title">Join the Nyay Paksh Party Family</h2>
 
           <div className="info-box">
             <h4>OTP Verification</h4>
             <p>
-              Enter your mobile number to receive an OTP
+              Register your mobile number and receive an OTP.
               <br />
-              This secure process ensures official membership.
+              This helps verify your identity and ensures official membership.
             </p>
           </div>
 
@@ -101,10 +99,23 @@ function LoginPage() {
               />
             </div>
 
+            {/* INFO BELOW NUMBER */}
+            <div className="consent-text">
+              <input type="checkbox" required />{" "}
+              <span>
+                I agree to receive OTP, updates, and official communication from
+                the Nyay Paksh Party via SMS, WhatsApp, or calls.
+              </span>
+            </div>
+
             <button type="submit" className="otp-btn">
               Send OTP
             </button>
           </form>
+          <p style={{ fontSize: "12px", color: "#555", textAlign: "center", marginTop: "10px" }}>
+           Facing any issues? Contact our support center
+         </p>
+
         </div>
 
         {/* ===== OTP MODAL ===== */}
@@ -139,6 +150,26 @@ function LoginPage() {
           </div>
         )}
       </div>
+
+      {/* ===== FOOTER ===== */}
+      <footer className="login-footer">
+        <div className="footer-simple">
+          <div className="footer-contact-simple">
+            <p> contact@nyaipaksh.org</p>
+            <p>📞 +91 11 1234 5678</p>
+            <p>📍 New Delhi, India</p>
+          </div>
+
+          <div className="footer-copyright">
+            <p>© 2026 Nyay Paksh Party. All Rights Reserved.</p>
+            <div className="footer-links-simple">
+              <a href="#">Privacy Policy</a>
+              <span> | </span>
+              <a href="#">Terms of Service</a>
+            </div>
+          </div>
+        </div>
+      </footer>
     </>
   );
 }
