@@ -17,7 +17,8 @@ function HomePage() {
 
   const handleLogout = async () => {
     try {
-      await fetch("http://localhost:5000/api/auth/logout", {
+      const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000';
+      await fetch(`${API_BASE_URL}/api/auth/logout`, {
         method: "POST",
         credentials: "include",
       });

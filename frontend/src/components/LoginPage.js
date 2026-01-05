@@ -11,7 +11,7 @@ function LoginPage() {
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
 
   // ===== SEND OTP =====
-  const handleMobileSubmit = (e) => {
+  const handleMobileSubmit = async (e) => {
     e.preventDefault();
 
     if (!/^\d{10}$/.test(mobileNumber)) {
@@ -19,11 +19,32 @@ function LoginPage() {
       return;
     }
 
-    setShowOTPModal(true);
+    try {
+      const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+      const response = await fetch(`${API_BASE_URL}/api/otp/send`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ phone: mobileNumber }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        alert(data.message);
+        setShowOTPModal(true);
+      } else {
+        alert(data.message || 'Failed to send OTP');
+      }
+    } catch (error) {
+      console.error('Error sending OTP:', error);
+      alert('Failed to send OTP. Please try again.');
+    }
   };
 
   // ===== VERIFY OTP =====
-  const handleOTPSubmit = (e) => {
+  const handleOTPSubmit = async (e) => {
     e.preventDefault();
     const enteredOTP = otp.join("");
 
@@ -32,7 +53,28 @@ function LoginPage() {
       return;
     }
 
-    navigate("/home");
+    try {
+      const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+      const response = await fetch(`${API_BASE_URL}/api/otp/verify`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ phone: mobileNumber, otp: enteredOTP }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        alert(data.message);
+        navigate("/profile");
+      } else {
+        alert(data.message || 'OTP verification failed');
+      }
+    } catch (error) {
+      console.error('Error verifying OTP:', error);
+      alert('Failed to verify OTP. Please try again.');
+    }
   };
 
   const handleOtpChange = (index, value) => {
